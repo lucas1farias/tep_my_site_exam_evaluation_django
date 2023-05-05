@@ -1,0 +1,24 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="useful-links">
+            <div class="flex-left">
+                <p class="btn btn-info active-user">Investidor: {{ user }}</p>
+            </div>
+            <div class="flex height-edited">
+                <div class="flex-column black-cover">
+                    <a class="btn btn-warning new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
+                    <a class="btn btn-light user-transactions" href="{% url 'transacoes-usuario' %}">{{ user }}: transações</a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

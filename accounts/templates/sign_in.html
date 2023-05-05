@@ -1,0 +1,33 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Entrar com usuário</title>
+{% endblock %}
+
+{% block body %}
+
+    <main>
+
+        <section id="user-creation-section">
+            <div class="user-creation-form">
+              <div class="flex-column height-edited">
+                  <h2 class="text-highlight">Login</h2>
+                  <form method="post">
+                      {% csrf_token %}
+                      {% include 'forms/sign_in_form.html' %}
+                      <div class="login-user-button">
+                          <input type="submit" class="input-config btn btn-success" value="entrar">
+                      </div>
+                  </form>
+              </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script></script>
+
+{% endblock %}

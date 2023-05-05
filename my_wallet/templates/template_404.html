@@ -1,0 +1,19 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Página não encontrada</title>
+{% endblock %}
+
+{% block body %}
+    <main>
+    <section id="unexisting-urls">
+        <div class="flex-column black-cover">
+            <h4 class="text-highlight">O caminho especificado não existe</h4>
+            <a href="{% url 'dashboard' %}" class="btn btn-info">retornar</a>
+        </div>
+    </section>
+    </main>
+{% endblock %}

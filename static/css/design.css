@@ -1,0 +1,133 @@
+
+
+main {
+    font-family: consolas;
+}
+
+b {
+    border: aqua solid 1px;
+    font-size: 1 rem;
+    border-radius: .5rem;
+    padding: .2rem;
+    background-color: black;
+    color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+label {
+    color: ivory;
+}
+
+p {
+    color: white;
+}
+
+table th {
+    text-align: center;
+}
+
+.dark-text {
+    color: black;
+    text-shadow: 0 0 10px black;
+}
+
+.bg-darkness {
+    background-color: black;
+}
+
+.bg-lawn {
+    background-color: yellowgreen;
+}
+
+.black-cover {
+    box-shadow: 0 0 1rem black;
+    border: black solid 1px;
+    padding: 1rem;
+}
+
+.delete-text {
+    font-size: 1.5 rem;
+    color: crimson;
+    text-shadow: 0 0 .7rem crimson;
+}
+
+.delete-light-beam {
+    height: .2rem;
+    border-radius: 1rem;
+    background-color: crimson;
+    border: solid 1px crimson;
+    box-shadow: 0 0 2rem crimson;
+    width: 70%;
+}
+
+.input-config input {
+    outline: none;
+    background-color: black;
+    border: solid 1px ivory;
+    font-size: 1rem;
+    margin: .4rem 0;
+    opacity: .7;
+    color: mediumseagreen;
+}
+
+.light-beam {
+    height: .2rem;
+    border-radius: 1rem;
+    background-color: gray;
+    border: solid 1px gray;
+    box-shadow: 0 0 2rem gray;
+    width: 70%;
+}
+
+.motion {
+    animation: move linear infinite 3s;
+}
+
+.red-beam {
+    height: .2rem;
+    border-radius: 1rem;
+    background-color: red;
+    border: solid 1px red;
+    box-shadow: 0 0 2rem red;
+    width: 70%;
+}
+
+.text-highlight {
+    font-weight: bold;
+    color: ivory;
+    text-shadow: 0 0 .5rem ivory;
+    font-size: 1 rem;
+}
+
+.text-highlight-smooth {
+    color: ivory;
+    text-shadow: 0 0 .1rem ivory;
+    font-size: .9rem;
+}
+
+.template-dark-mode {
+    background-color: #222;
+}
+
+.template-light-mode {
+    background-color: ivory;
+}
+
+.select-config option {
+    outline: none;
+    background-color: black;
+    border: solid 1px ivory;
+    font-size: 1rem;
+    margin: .4rem 0;
+    color: mediumseagreen;
+}
+
+@keyframes move {
+    20% {transform: translateX(2px);}
+    40% {transform: translateY(-2px);}
+    65% {transform: translateY(2px);}
+    90% {transform: translateX(-2px);}
+}

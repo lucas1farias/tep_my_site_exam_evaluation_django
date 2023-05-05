@@ -1,0 +1,41 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Editar dados da transação</title>
+{% endblock %}
+
+{% block body %}
+<main>
+    <section id="transaction-edit-form">
+        <div class="flex-column height-edited">
+            <h3 class="flex-column">Dados atuais desta transação</h3>
+
+            <div class="flex black-cover transaction-current-data">
+                <span class="btn btn-dark">Id: <b>{{ object.pk }}</b></span>
+                <span class="btn btn-dark">Criação: <b>{{ object.creation_date }}</b></span>
+                <span class="btn btn-dark">Ativo: <b>{{ object.stock }}</b></span>
+                <span class="btn btn-dark">Quantidade do ativo: <b>{{ object.stock_shares }}</b></span>
+                <span class="btn btn-dark">Preço unitário: R$ <b>{{ object.share_unit_price }}</b></span>
+                <span class="btn btn-dark">Operação:<b>{{ object.operation }}</b></span>
+                <span class="btn btn-dark">Taxa de corretagem: <b>{{ object.tax }}%</b></span>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                {% include 'forms/edit_transaction_form.html' %}
+                <div class="create-transaction">
+                    <h6 class="text-highlight-smooth" id="hint"></h6>
+                    <div class="flex">
+                        <input type="submit" id="new-transaction-post" class="btn btn-info" value="editar">
+                        <a href="{% url 'transacoes-usuario' %}" id="return-dashboard" class="btn btn-danger">cancelar</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock %}

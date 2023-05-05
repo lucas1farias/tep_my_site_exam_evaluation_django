@@ -1,0 +1,83 @@
+
+
+def data():
+    """
+    ========== data ==========
+    No contexto de uma aplicação web relacionada ao mercado financeiro, o campo de data em uma transação geralmente
+    serve para registrar a data em que a transação ocorreu. Essa informação pode ser útil para diversos fins, como:
+
+    * Análise de desempenho
+        A data da transação pode ser usada para calcular o ganho ou perda em um período específico, o que pode ajudar os
+        usuários a entenderem como seus investimentos estão se saindo.
+
+    * Impostos:
+        A data da transação pode ser usada para determinar a taxa de imposto a ser aplicada em certos tipos de
+        investimentos, como ações e fundos imobiliários.
+
+    * Compliance:
+        Em muitas jurisdições, há regulamentos específicos que exigem o registro da data da transação para fins de
+        conformidade com as leis e regulamentos aplicáveis.
+    """
+
+
+def acao():
+    """
+    Em uma aplicação web relacionada ao mercado financeiro, a ação representa uma parte do capital social de uma empresa
+    que é negociada na bolsa de valores. No contexto de uma transação, o campo de ação é utilizado para identificar qual
+    ação específica está sendo comprada ou vendida. Geralmente, esse campo é preenchido a partir de uma lista de ações
+    disponíveis na plataforma e é utilizado para manter o registro de todas as transações envolvendo aquela ação
+    específica.
+    """
+
+
+def quantidade_de_acoes():
+    """
+    Em uma aplicação web relacionada ao mercado financeiro, o campo de "quantidade de ações" em uma transação é
+    utilizado para informar o número de ações que estão sendo compradas ou vendidas em uma transação específica. Esse
+    valor é IMPORTANTE porque influencia diretamente no VALOR TOTAL DA TRANSAÇÃO. Além disso, a quantidade de ações pode
+    ser usada para calcular métricas como a média de preço por ação e o valor total da posição de um investidor em uma
+    determinada ação. O valor deste campo pode ser um número inteiro ou decimal, dependendo das especificações do
+    sistema em questão.
+    """
+
+
+def preco_unitario_da_acao():
+    """
+    O campo de preço unitário da ação em uma transação em uma aplicação web relacionada ao mercado financeiro serve para
+    ESPECIFICAR o valor pelo qual cada ação foi comprada ou vendida na transação. Esse campo é importante porque AFETA o
+    VALOR TOTAL DA TRANSAÇÃO e, portanto, afeta o resultado financeiro do investidor. Por exemplo, se um investidor
+    compra 100 ações de uma empresa a um preço unitário de R$10, o valor total da transação será de R$1000. Se o mesmo
+    investidor tivesse comprado as mesmas 100 ações a um preço unitário de R$12, o valor total da transação seria de
+    R$1200, o que teria um impacto significativo em sua carteira de investimentos.
+    """
+
+
+def operacao():
+    """
+    Em um contexto de uma aplicação web relacionada ao mercado financeiro, o campo da operação em uma transação é
+    utilizado para INDICAR se a transação se refere à compra ou venda de ações. O valor desse campo pode ser "Compra" ou
+    "Venda", por exemplo, indicando se o usuário está comprando ou vendendo ações naquela transação. É um campo
+    importante porque a compra ou venda de ações pode ter implicações fiscais e contábeis diferentes, e pode afetar o
+    desempenho geral da carteira de investimentos do usuário.
+    """
+
+
+def taxa_de_corretagem():
+    """
+    Em uma aplicação web relacionada ao mercado financeiro, o campo da TAXA DE CORRETAGEM em uma transação representa o
+    VALOR COBRADO pela corretora para realizar a operação de compra ou venda de ações. Essa taxa é geralmente uma
+    PORCENTAGEM DO VALOR TOTAL DA TRANSAÇÃO, podendo ser fixa ou variável de acordo com a corretora e o tipo de operação
+    realizada. A taxa de corretagem é uma forma de remuneração da corretora pelos seus serviços e pode variar de acordo
+    com a concorrência entre as empresas e as condições de mercado.
+    """
+
+
+def investidor():
+    """
+    No contexto de uma aplicação web relacionada ao mercado financeiro, o campo do INVESTIDOR em uma transação indica o
+    nome ou identificação do investidor que ESTÁ REALIZANDO A TRANSAÇÃO. Esse campo é importante para o CONTROLE DAS
+    TRANSAÇÕES feitas por cada investidor e para a verificação de sua posição no mercado. Com essa informação, é
+    possível saber quanto cada investidor possui de ações, qual o seu histórico de transações e como está o seu
+    desempenho no mercado financeiro. O campo do investidor pode ser preenchido manualmente pelo próprio investidor ou
+    ser automaticamente preenchido a partir do login realizado na aplicação web.
+    """

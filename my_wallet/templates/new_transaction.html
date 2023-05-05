@@ -1,0 +1,31 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Criar uma nova transação</title>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="new-transaction">
+            <div class="flex">
+                <h2 class="text-highlight mt-2">Criar nova transação</h2>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="flex-column height-edited">
+                  {% include 'forms/new_transaction_form.html' %}
+                    <div class="create-transaction">
+                        <h6 class="text-highlight-smooth" id="hint"></h6>
+                        <input type="submit" id="new-transaction-post" class="btn btn-success" value="criar">
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script type="text/javascript" src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}

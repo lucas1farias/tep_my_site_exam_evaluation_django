@@ -1,0 +1,26 @@
+
+
+<!DOCTYPE html>
+    {% load bootstrap4 %}
+    {% load static %}
+
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="ie-edge" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsiveness.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/design.css' %}">
+        {% bootstrap_css %}
+        {% block title %} {% endblock %}
+        {% block link %} {% endblock %}
+        {% block style %} {% endblock %}
+    </head>
+    <body class="template-dark-mode">
+      {% bootstrap_messages %}
+      {% block body %}
+
+      {% endblock %}
+      {% bootstrap_javascript jquery='full' %}
+    </body>
+    </html>

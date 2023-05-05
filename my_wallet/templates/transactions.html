@@ -1,0 +1,81 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+    <title>Listagem de transações</title>
+{% endblock %}
+
+{% block body %}
+    <main>
+        {% include 'return_button.html' %}
+        <section id="transactions-list">
+            <!-- Não há alguma transação -->
+            {% if transactions|length == 0 %}
+                <div class="flex-column height-edited">
+                    <p class="text-highlight-smooth">Não há transações adicionadas</p>
+                    <a class="btn btn-success new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
+                </div>
+            {% else %}
+                {% if not active_user_has_transactions %}
+                    <div class="flex-column height-edited">
+                        <div class="text-highlight">{{ user }} não possui transações registradas</div>
+                        <hr class="red-beam">
+                        <a class="btn btn-success new-transaction" href="{% url 'nova-transacao' %}">+ transação p/ {{ user }}</a>
+                    </div>
+                {% endif %}
+                <div class="flex height-edited">
+                    <table class="table table-dark" style="width: 70%;">
+                        <thead>
+                        <tr>
+                            <th class="bg-success">Data de criação</th>
+                                <th class="bg-danger">Ação</th>
+                                <th class="bg-secondary">Quantidade disponível</th>
+                                <th class="bg-primary">Preço unitário</th>
+                                <th class="bg-warning">Operação</th>
+                                <th class="bg-info">Taxa de corretagem</th>
+                                <th class="bg-danger">Investidor</th>
+                                <!-- Adicionado posteriormente aos itens anteriores (crud editar links dinâmicos) -->
+                                <th class="bg-darkness">Ações</th>
+                            </tr>
+                        </thead>
+                        {% for transaction in transactions %}
+                            <!--
+                            . "turn_into_string" é uma função em "my_wallet/templatetags/my_filters.py"
+                            . As funções neste caminho são filtros p/ uso em templates, nas tags
+                            . "transaction.investor" é do tipo "Investor" e precisa se tornar string
+                            . Razão de ter feito isso?
+                            . O "if" abaixo encontra textos iguais mas não aplica o conteúdo da condição
+                            . A razão disso é que mesmo sendo textos iguais, seus tipos são diferentes
+                            . "turn_into_string" torna os 2 dados comparados em string e a condição passa a funcionar
+                            -->
+                            {% if active_user == transaction.investor|turn_into_string %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{ transaction.creation_date }}</td>
+                                        <td>{{ transaction.stock }}</td>
+                                        <td>{{ transaction.stock_shares }}</td>
+                                        <td>{{ transaction.share_unit_price }}</td>
+                                        <td>{{ transaction.operation }}</td>
+                                        <td>{{ transaction.tax }}</td>
+                                        <td>{{ transaction.investor }}</td>
+                                        <!-- Adicionado posteriormente aos itens anteriores (crud editar links dinâmicos) -->
+                                        <td>
+                                            <div class="flex">
+                                                <a class="btn btn-warning motion" href="{% url 'editar-transacao' transaction.pk %}">alterar</a>
+                                                <a class="btn btn-danger motion" href="{% url 'remover-transacao' transaction.pk %}">del</a>
+                                                <a class="btn btn-info motion" href="{% url 'detalhe-transacao' transaction.pk %}">detalhes</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

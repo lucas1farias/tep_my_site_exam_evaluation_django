@@ -1,0 +1,33 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Criar nova conta de usuário</title>
+{% endblock %}
+
+{% block body %}
+
+    <main>
+
+        <section id="user-creation-section">
+            <div class="user-creation-form">
+              <div class="flex-column height-edited">
+                  <h2 class="text-highlight">Criar conta de usuário</h2>
+                  <form method="post">
+                      {% csrf_token %}
+                      {% include 'forms/sign_up_form.html' %}
+                      <div class="create-user-button">
+                          <input type="submit" class="input-config btn btn-success" value="criar conta">
+                      </div>
+                  </form>
+              </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script></script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Remover transação</title>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <section id="transaction-delete">
+            <div class="flex-column height-edited">
+                <div class="question delete-text">Deseja remover {{ object }}?</div>
+                <hr class="delete-light-beam">
+                <div class="flex-column">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-danger" type="submit" value="Sim">
+                        <a href="{% url 'transacoes-usuario' %}" class="btn btn-primary">cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

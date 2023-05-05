@@ -1,0 +1,44 @@
+
+
+.height-edited {
+    min-height: 100vh;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.flex-no-gap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.flex-column-no-gap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.flex-left {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    gap: 1rem;
+}
+
+.freeze-position {
+    position: fixed;
+}

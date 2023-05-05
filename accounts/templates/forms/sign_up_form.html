@@ -1,0 +1,34 @@
+
+
+<div class="input-config username">
+    <label class="sr-only" for="username">Campo para escrever o nome de usuário/apelido</label>
+    <input type="text" id="username" max="100" min="2" name="username" placeholder="Seu nome de usuário" size="50" required>
+</div>
+
+<div class="input-config email">
+    <label class="sr-only" for="email">Campo para escrever e-mail</label>
+    <input type="email" id="email" max="100" min="2" name="email" placeholder="Seu e-mail" size="50" required>
+</div>
+
+<div class="input-config password">
+    <label class="sr-only" for="password">Campo para escrever senha</label>
+    <input type="password" id="password" max="100" min="2" name="password" placeholder="Sua senha" size="50" required>
+</div>
+
+<div class="input-config password-again">
+    <label class="sr-only" for="password-confirm">Campo para reescrever a senha</label>
+    <input type="password" id="password-confirm" max="100" min="2" name="password_confirm" placeholder="Sua senha novamente" size="50" required>
+</div>
+
+<!-- Fonte: "my_wallet/models/Investor" -->
+<div class="flex-column">
+    <div>
+        <p>Perfil de risco do investidor</p>
+    </div>
+    <select class="select-config" name="profile">
+        <option>escolher...</option>
+        <option value="c">conservador</option>
+        <option value="m">moderado</option>
+        <option value="a">arrojado</option>
+    </select>
+</div>

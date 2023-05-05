@@ -1,0 +1,36 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block title %}
+    <title>Detalhes de {{ user }}</title>
+{% endblock %}
+
+{% block body %}
+   <main>
+       {% include 'return_button.html' %}
+        <section id="investor-transaction-details">
+            <div class="flex height-edited">
+                <div class="flex-column black-cover transaction-info">
+                    <p>Transação</p>
+                    <span class="btn btn-secondary">Id: <b>{{ object.pk }}</b></span>
+                    <span class="btn btn-secondary">Criação: <b>{{ object.creation_date }}</b></span>
+                    <span class="btn btn-secondary">Ativo: <b>{{ object.stock }}</b></span>
+                    <span class="btn btn-secondary">Quantidade do ativo: <b>{{ object.stock_shares }}</b></span>
+                    <span class="btn btn-secondary">Preço unitário: R$ <b>{{ object.share_unit_price }}</b></span>
+                    <span class="btn btn-secondary">Operação:<b>{{ object.operation }}</b></span>
+                    <span class="btn btn-secondary">Taxa de corretagem: <b>{{ object.tax }}</b></span>
+                </div>
+                <div class="flex-column black-cover calculus">
+                    <p>Cálculos</p>
+                    <span class="btn btn-secondary">Valor da compra: R$ <b>{{ purchase_value }}</b></span>
+                    <span class="btn btn-secondary">Taxas totais: R$ <b>{{ total_taxes }}</b></span>
+                    <span class="btn btn-secondary">Valor total da negociação: R$ <b>{{ trade_value }}</b></span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script type="text/javascript" src="{% static 'js/buttons_effect.js' %}"></script>
+{% endblock %}

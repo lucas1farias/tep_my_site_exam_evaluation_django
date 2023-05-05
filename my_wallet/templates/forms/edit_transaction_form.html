@@ -1,0 +1,62 @@
+
+
+<!-- my_wallet/models.py/Transaction/creation_date -->
+<div class="input-config flex-column">
+    <p class="text-highlight-smooth">Formato da data: dd/mm/yyyy</p>
+    <label class="sr-only" for="creation_date">Campo para editar a data de criação da transação</label>
+    <input type="text" id="creation_date" max="10" min="10" name="creation_date" placeholder="Data de criação da transação" size="25">
+</div>
+
+<!-- my_wallet/models.py/Transaction/stock_shares -->
+<div class="input-config flex-column">
+    <label class="sr-only" for="stock_shares">Campo para editar a quantidade de ações</label>
+    <input type="number" id="stock_shares" min="1" name="stock_shares" placeholder="Quantidade de ações">
+</div>
+
+<div class="flex">
+    <!-- my_wallet/models.py/Transaction/share_unit_price -->
+    <div class="input-config">
+        <label class="sr-only" for="share_unit_price">Campo para editar o preço unitário de cada ação</label>
+        <div class="flex-column-no-gap">
+            <label for="share_unit_price">Preço unitário por ação</label>
+            <input type="text" id="share_unit_price" max="100" min="2" name="share_unit_price" size="20">
+        </div>
+    </div>
+
+    <!-- my_wallet/models.py/Transaction/tax -->
+    <div class="input-config">
+        <label class="sr-only" for="tax">Campo para editar a taxa de corretagem da ação</label>
+        <div class="flex-column-no-gap indent">
+            <label for="tax">Taxa de corretagem (ex: 10, 33,5)</label>
+            <input type="text" id="tax" name="tax" size="20">
+        </div>
+    </div>
+</div>
+
+
+<!-- DROPDOWNS -->
+<div class="flex all-dropdowns">
+    <!-- my_wallet/models.py/Transaction/stock -->
+    <div class="flex-column black-cover">
+        <div>
+            <p>Escolher a ação</p>
+        </div>
+        <select class="select-config" name="stock">
+            <option value="unchanged">escolher...</option>
+            {% for stock in stocks %}
+                <option value="{{ stock.code }}">{{ stock.code }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- my_wallet/models.py/Transaction/operation -->
+    <div class="flex-column black-cover">
+        <div>
+            <p>Operação</p>
+        </div>
+        <select class="select-config" name="operation">
+            <option value="c">compra</option>
+            <option value="v">venda</option>
+        </select>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Página Inicial</title>
+{% endblock %}
+
+{% block body %}
+
+    <main>
+
+        <section id="user-section">
+            <!-- Informar usuário não logado ou inexistente -->
+            {% if user_absent %}
+
+                <div class="user-not-logged">
+                    <div class="flex-column height-edited">
+                        <h2 class="text-secondary">Você está anônimo</h2>
+                        <hr class="light-beam">
+
+                        <!-- Exibir o botão p/ criar uma conta -->
+                        <h6 class="access-options text-highlight-smooth">Opções disponíveis</h6>
+                        <div class="access-actions flex">
+                            <a class="btn btn-primary create-account" href="{% url 'criar-conta' %}">Criar conta</a>
+                            <a class="btn btn-secondary login-account" href="{% url 'iniciar-sessao' %}">Login</a>
+                        </div>
+                    </div>
+                </div>
+            <!-- Informar usuário logado -->
+            {% else %}
+                <div class="user-logged">
+                    <div class="flex-column height-edited">
+                        <p class="logged-as btn btn-success">Investidor: {{ user }}</p>
+                        <div class="flex-column black-cover">
+                            <a class="btn btn-light user-transactions" href="{% url 'transacoes-usuario' %}">transações de {{ user }}</a>
+                            <a class="btn btn-info new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
+                            <a class="logout btn btn-danger" href="{% url 'encerrar-sessao' %}">sair</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+
+    </main>
+
+    <script></script>
+
+{% endblock %}

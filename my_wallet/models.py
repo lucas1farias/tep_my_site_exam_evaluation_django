@@ -23,7 +23,7 @@ class Investor(Base):
     )
 
     profile = models.CharField('Perfil de risco', max_length=1, choices=PROFILE_CHOICES)
-    investor = models.OneToOneField(User, on_delete=models.CASCADE)
+    investor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='investor')
 
     def __str__(self):
         return self.investor.username
@@ -146,7 +146,7 @@ class Transaction(Base):
     share_unit_price = models.DecimalField('Preço unitário da ação', max_digits=8, decimal_places=2)
     operation = models.CharField('Tipo da operação', max_length=1, choices=OPERATION_CHOICES)
     tax = models.DecimalField('Taxa de corretagem', max_digits=6, decimal_places=2)
-    investor = models.ForeignKey(Investor, on_delete=models.CASCADE)
+    investor = models.ForeignKey(Investor, on_delete=models.CASCADE, related_name='transaction')
 
     def __str__(self):
         return self.stock.code

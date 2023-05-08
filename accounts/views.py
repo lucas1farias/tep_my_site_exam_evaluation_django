@@ -96,7 +96,7 @@ def sign_out(request):
     user_out = request.user.username
     success(request, f'O usuário {user_out} efetuou sua saída com sucesso!')
     logout(request)
-    return redirect('index')
+    return redirect('dashboard')
 
 
 # àrte 2: Logar na conta
@@ -119,7 +119,7 @@ class SignInView(TemplateView):
             if user_by_username:
                 login(request, user_by_username)
                 success(request, msg['logged_in'].format(person=user_by_username))
-                return redirect('index')
+                return redirect('dashboard')
 
             else:
                 error(request, msg['incorrect_data'])

@@ -39,6 +39,14 @@
     gap: 1rem;
 }
 
+.flex-left-column {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    gap: 1rem;
+    flex-direction: column;
+}
+
 .freeze-position {
     position: fixed;
 }

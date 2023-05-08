@@ -7,10 +7,6 @@ console.log(indexes)
 let button
 let index
 
-const range = ({min, max}) => {
-  return Array.from({length: max - min + 1}, (value, key) => key + min)
-}
-
 setInterval(() => {
     button = buttons_group[Math.floor(Math.random() * buttons_group.length)]
     index = indexes[Math.floor(Math.random() * indexes.length)]

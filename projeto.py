@@ -92,12 +92,7 @@ class Transactions('template 3, template p/ exibição de transações criadas, 
     * Deve conter um botão de “voltar” que leva para "dashboard.html"
 
     * Para visualização de cada operação calcular e exibir os valores: (NÃO FEITO a parte de calcular apenas)
-        1. Código do ativo
-        2. Tipo de operação (compra ou venda)
-        3. Data
-        4. Quantidade
-        5. Preço unitário
-        6. Total
+        1. Código do ativo 2. Tipo de operação (compra ou venda) 3. Data 4. Quantidade 5. Preço unitário 6. Total
 
     * Para cada operação deve haver um botao para detalhar a operação que abre uma página "detalhe.html" (NÃO FEITO)
     """
@@ -120,7 +115,7 @@ class Detalhe('template 4, template p/ exibição de detalhes sobre cada transa�
         ● quantidade de ações (Q)
         ● custo unitário da ação (U)
         ● custo de corretagem (C)
-        ● valor de compra (V) = Q * U (FEITO)
+        ● valor de compra (V) = Q * U
         ● taxas B3 = B
         ● taxas_totais (T) = B + C
         ● valor total da negociação (X)

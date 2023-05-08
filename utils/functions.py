@@ -25,6 +25,14 @@ def call_model(model):
     return model.objects.all()
 
 
+def get_db_size(model):
+    return len(model.objects.all())
+
+
+def check_db_is_empty(model):
+    return len(model.objects.all()) == 0
+
+
 # Funções criadas p/ criar 100 objetos de ação SE: o modelo "Stock" não tiver objetos
 def create_stocks_code(amount):
     # Símbolos usados na criação de uma ação (4 letras & 1 número) (4 letras e 2 números)
@@ -83,6 +91,21 @@ def create_company_name(amount):
     return tuple(companies_box)
 
 
+def create_stocks_if_db_is_empty(db, amount):
+    if len(db.objects.all()) == 0:
+        box_of_stocks = create_stocks_code(amount=amount)
+        box_of_companies = create_company_name(amount=amount)
+        box_of_cnpj = create_cnpj(amount)
+
+        for i, index in enumerate(box_of_stocks):
+            new_stock = db(
+                code=box_of_stocks[i],
+                company_name=box_of_companies[i],
+                corporate_taxpayer_registry=box_of_cnpj[i]
+            )
+            new_stock.save()
+
+
 def create_cnpj(amount):
     from random import choice
 
@@ -99,21 +122,6 @@ def create_cnpj(amount):
         cnpj_box.add(code)
 
     return tuple(cnpj_box)
-
-
-def create_stocks_if_db_is_empty(db, amount):
-    if len(db.objects.all()) == 0:
-        box_of_stocks = create_stocks_code(amount=amount)
-        box_of_companies = create_company_name(amount=amount)
-        box_of_cnpj = create_cnpj(amount)
-
-        for i, index in enumerate(box_of_stocks):
-            new_stock = db(
-                code=box_of_stocks[i],
-                company_name=box_of_companies[i],
-                corporate_taxpayer_registry=box_of_cnpj[i]
-            )
-            new_stock.save()
 
 
 def date_validity(target_date):
@@ -184,7 +192,19 @@ def calculate_trade_value(operation, purchase_value, tax):
         return f'{purchase_value_data - tax_data:.2f}'
 
 
+def get_percentage(reference, main_source, is_float:False):
+    calculus = (reference / main_source) * 100
+    return f'{calculus:.2f}%' if is_float else calculus
+
+
 # print(create_stocks_code(100))
 # print(create_cnpj(100))
 # print(create_company_name(100))
-print(create_cnpj(1))
+# print(create_cnpj(1))
+
+"""
+1. I want to check in the template if a certain database is empty
+2. If it is, I have a button on the template that is supposed to create certain objects and make this database not empty anymore
+3. But I do not know how to trigger a function in Django when I click on something in the template
+4. Is it possible to be done through Django?
+"""

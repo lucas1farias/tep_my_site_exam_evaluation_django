@@ -28,7 +28,6 @@ class IndexView(TemplateView):
         return context
 
 
-# Parte 1: Criar conta
 class SignUpView(CreateView):
     template_name = 'sign_up.html'
     model = User
@@ -79,7 +78,7 @@ class SignUpView(CreateView):
                 # O objeto "User" criado acima é passado inteiro como parâmetro para o objeto "Investor"
                 # Isso acontece, pois o atributo "investor" do modelo "Investor" é um instância de "User"
                 new_investor = create_object(
-                    label='investor',
+                    label='investidor',
                     db=Investor,
                     fields=(request.POST['profile'], new_user)
                 )
@@ -88,10 +87,9 @@ class SignUpView(CreateView):
                 new_investor.save()
 
                 success(request, msg['sign-up-successful'].format(account_=new_user.username))
-                return redirect('index')
+                return redirect('dashboard')
 
 
-# Parte 2: Sair da conta
 def sign_out(request):
     user_out = request.user.username
     success(request, f'O usuário {user_out} efetuou sua saída com sucesso!')
@@ -99,7 +97,6 @@ def sign_out(request):
     return redirect('dashboard')
 
 
-# àrte 2: Logar na conta
 class SignInView(TemplateView):
     template_name = 'sign_in.html'
 

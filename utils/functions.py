@@ -4,12 +4,26 @@ from random import choice
 from datetime import datetime
 
 
+def create_date():
+    today = datetime.today()
+    day, month, year = today.day, today.month, today.year
+    origin_number = tuple(range(0, 10))
+
+    if day in origin_number:
+        day = f'0{day}'
+    if month in origin_number:
+        month = f'0{month}'
+
+    proper_date = f'{day}/{month}/{year}'
+    return proper_date
+
+
 def create_object(label, db, fields):
     if label == 'user':
         return db.objects.create_user(username=fields[0], email=fields[1], password=fields[2])
-    elif label == 'investor':
+    elif label == 'investidor':
         return db(profile=fields[0], investor=fields[1])
-    elif label == 'transaction':
+    elif label == 'transação':
         return db(
             creation_date=fields[0],
             stock=fields[1],
@@ -217,6 +231,9 @@ def search_by_stock(model, user, search):
 # print(create_cnpj(100))
 # print(create_company_name(100))
 # print(create_cnpj(1))
+
+
+
 
 """
 customer.order_set.all()

@@ -18,6 +18,7 @@
             {% if transactions|length == 0 %}
                 <div class="flex-column height-edited">
                     <p class="text-highlight-smooth">Não há transações adicionadas</p>
+                    <hr class="red-beam">
                     <a class="btn btn-success new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
                 </div>
 

@@ -1,7 +1,9 @@
 
 
+from datetime import datetime
+
 from django.shortcuts import render
-from django.contrib.messages import success
+from django.contrib.messages import error, success
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, TemplateView, UpdateView
@@ -68,108 +70,109 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # TODO: Criador de stocks automático
-        context['no_stocks'] = check_db_is_empty(Stock)
-        context['db_stocks'] = len(call_model(Stock))
+        user = self.request.user.username
+        user_absent = self.request.user.is_anonymous
 
-        # Os dados do investidor só devem aparecer p/ quem estiver logado
-        context['user_absent'] = self.request.user.is_anonymous
+        context['user'] = user
+        context['user_absent'] = user_absent
 
         # Tudo isso só pode acontecer se há um usuário cadastrado e logado
-        if not context['user_absent']:
+        if not user_absent:
 
             context['user'] = self.request.user.username
 
-            # Todas as transações registradas
-            transactions_db = len(call_model(Transaction))
+            if get_db_size(Investor) > 0:
 
-            # Todas as transações do usuário logado
-            logged_investor = Investor.objects.get(investor__username=context['user'])
-            user_transactions = logged_investor.transaction.all()
+                if get_db_size(Transaction) > 0:
 
-            """ alternativo """
-            # all_users = tuple((investor.__dict__['investor_id'] for investor in transactions_db))
-            # logged_user = tuple((investor.__dict__['investor_id'] for investor in transactions))
+                    # Todas as transações registradas
+                    transactions_db = len(call_model(Transaction))
 
-            # =============================================== IMPORTANTE ===============================================
-            user_stocks_amount = len(user_transactions)
+                    # Todas as transações do usuário logado
+                    logged_investor = Investor.objects.get(investor__username=user)
+                    user_transactions = logged_investor.transaction.all()
 
-            # =============================================== IMPORTANTE ===============================================
-            # Porcentagem de ativos do usuário em relação ao banco de transações
-            user_stocks_percentage = get_percentage(reference=user_stocks_amount, main_source=transactions_db, is_float=True)
-            user_stocks_percentage_shortened = get_percentage(reference=user_stocks_amount, main_source=transactions_db)
+                    """ alternativo """
+                    # all_users = tuple((investor.__dict__['investor_id'] for investor in transactions_db))
+                    # logged_user = tuple((investor.__dict__['investor_id'] for investor in transactions))
 
-            # =============================================== IMPORTANTE ===============================================
-            stocks_length = 0
-            stocks_length_worth = 0
+                    # =========================================== IMPORTANTE ===========================================
+                    user_stocks_amount = len(user_transactions)
 
-            stocks_length_for_purchase = 0
-            stocks_length_for_sale = 0
+                    # =========================================== IMPORTANTE ===========================================
+                    # Porcentagem de ativos do usuário em relação ao banco de transações
+                    user_stocks_percentage = get_percentage(reference=user_stocks_amount, main_source=transactions_db, is_float=True)
+                    user_stocks_percentage_shortened = get_percentage(reference=user_stocks_amount, main_source=transactions_db)
 
-            stocks_length_for_purchase_worth = 0
-            stocks_length_for_sale_worth = 0
+                    # =========================================== IMPORTANTE ===========================================
+                    stocks_length = 0
+                    stocks_length_worth = 0
 
-            for transaction in user_transactions:
-                # ============================================== PARTE 1 ==============================================
-                # Cálculo p/ obter o valor total de todos os ativos do usuário (compra + venda)
-                each_stock_total_price = transaction.stock_shares * transaction.share_unit_price
+                    stocks_length_for_purchase = 0
+                    stocks_length_for_sale = 0
 
-                # Onde o cálculo é usado
-                stocks_length_worth = increase_itself(target=stocks_length_worth, atrib=each_stock_total_price)
+                    stocks_length_for_purchase_worth = 0
+                    stocks_length_for_sale_worth = 0
 
-                # Obter a quantidade total de ativos do usuário (compra + venda)
-                stocks_length = increase_itself(target=stocks_length, atrib=transaction.stock_shares)
+                    for transaction in user_transactions:
+                        # ========================================== PARTE 1 ==========================================
+                        # Cálculo p/ obter o valor total de todos os ativos do usuário (compra + venda)
+                        each_stock_total_price = transaction.stock_shares * transaction.share_unit_price
 
-                # ============================================== PARTE 2 ==============================================
-                # Obter a qtd. de ativos com operação compra do usuário
-                if transaction.operation == 'c':
-                    stocks_length_for_purchase = increase_itself(target=stocks_length_for_purchase, atrib=transaction.stock_shares)
+                        # Onde o cálculo é usado
+                        stocks_length_worth = increase_itself(target=stocks_length_worth, atrib=each_stock_total_price)
 
-                # Obter a qtd. de ativos com operação venda do usuário
-                else:
-                    stocks_length_for_sale = increase_itself(target=stocks_length_for_sale, atrib=transaction.stock_shares)
+                        # Obter a quantidade total de ativos do usuário (compra + venda)
+                        stocks_length = increase_itself(target=stocks_length, atrib=transaction.stock_shares)
 
-                # Obter o valor total de ativos com operação COMPRA do usuário
-                if transaction.operation == 'c':
-                    stocks_length_for_purchase_worth = increase_itself(
-                        target=stocks_length_for_purchase_worth,
-                        atrib=(transaction.stock_shares * transaction.share_unit_price)
-                    )
+                        # ========================================== PARTE 2 ==========================================
+                        # Obter a qtd. de ativos com operação compra do usuário
+                        if transaction.operation == 'c':
+                            stocks_length_for_purchase = increase_itself(target=stocks_length_for_purchase, atrib=transaction.stock_shares)
 
-                # Obter o valor total de ativos com operação VENDA do usuário
-                else:
-                    stocks_length_for_sale_worth = increase_itself(
-                        target=stocks_length_for_sale_worth,
-                        atrib=(transaction.stock_shares * transaction.share_unit_price)
-                    )
+                        # Obter a qtd. de ativos com operação venda do usuário
+                        else:
+                            stocks_length_for_sale = increase_itself(target=stocks_length_for_sale, atrib=transaction.stock_shares)
 
-            # print(user_stocks_percentage_shortened)
-            # print(user_stocks_amount)
-            # print(user_stocks_percentage)
-            # print(stocks_length)
-            # print(stocks_length_worth)
-            # print(stocks_length_for_purchase)
-            # print(stocks_length_for_purchase_worth)
-            # print(stocks_length_for_sale)
-            # print(stocks_length_for_sale_worth)
+                        # Obter o valor total de ativos com operação COMPRA do usuário
+                        if transaction.operation == 'c':
+                            stocks_length_for_purchase_worth = increase_itself(
+                                target=stocks_length_for_purchase_worth,
+                                atrib=(transaction.stock_shares * transaction.share_unit_price)
+                            )
 
-            # Dados ordenados pela aparição no template "dashboard.html"
-            context['user_stocks_percentage_shortened'] = user_stocks_percentage_shortened
+                        # Obter o valor total de ativos com operação VENDA do usuário
+                        else:
+                            stocks_length_for_sale_worth = increase_itself(
+                                target=stocks_length_for_sale_worth,
+                                atrib=(transaction.stock_shares * transaction.share_unit_price)
+                            )
 
-            context['user_stocks_amount'] = user_stocks_amount
-            context['user_stocks_percentage'] = user_stocks_percentage
-            context['stocks_length'] = stocks_length
-            context['stocks_length_worth'] = stocks_length_worth
+                    # print(user_stocks_percentage_shortened)
+                    # print(user_stocks_amount)
+                    # print(user_stocks_percentage)
+                    # print(stocks_length)
+                    # print(stocks_length_worth)
+                    # print(stocks_length_for_purchase)
+                    # print(stocks_length_for_purchase_worth)
+                    # print(stocks_length_for_sale)
+                    # print(stocks_length_for_sale_worth)
 
-            context['stocks_length_for_purchase'] = stocks_length_for_purchase
-            context['stocks_length_for_purchase_worth'] = stocks_length_for_purchase_worth
+                    # Dados ordenados pela aparição no template "dashboard.html"
+                    context['user_stocks_percentage_shortened'] = user_stocks_percentage_shortened
 
-            context['stocks_length_for_sale'] = stocks_length_for_sale
-            context['stocks_length_for_sale_worth'] = stocks_length_for_sale_worth
+                    context['user_stocks_amount'] = user_stocks_amount
+                    context['user_stocks_percentage'] = user_stocks_percentage
+                    context['stocks_length'] = stocks_length
+                    context['stocks_length_worth'] = stocks_length_worth
 
-            return context
-        else:
-            return context
+                    context['stocks_length_for_purchase'] = stocks_length_for_purchase
+                    context['stocks_length_for_purchase_worth'] = stocks_length_for_purchase_worth
+
+                    context['stocks_length_for_sale'] = stocks_length_for_sale
+                    context['stocks_length_for_sale_worth'] = stocks_length_for_sale_worth
+
+        return context
 
 
 class NewTransactionView(CreateView):
@@ -183,30 +186,25 @@ class NewTransactionView(CreateView):
             stock = Stock.objects.get(code=stock_input)
 
             investor_input = request.POST.get('investor')
-            print('===================================================================================================')
-            print(investor_input)
+            print(f'=================================================================================={investor_input}')
             investor = Investor.objects.get(pk=investor_input)
-            print('===================================================================================================')
-            print(investor)
+            print(f'==================================================================================={investor}')
 
             # Os campos "stock" e "investor" são relacionados, portanto devem passar o objeto todo
             # Os campos "share_unit_price" e "tax" são decimais, e no template foram convertidos p/ input type="text"
             share_unit_price = treat_floating_number(self.request.POST.get('share_unit_price'))
             tax = treat_floating_number(self.request.POST.get('tax'))
 
-            new_transaction = create_object(
-                label='transaction',
-                db=NewTransactionView.model,
-                fields=(
-                    request.POST.get('creation_date'),
-                    stock,
-                    request.POST.get('stock_shares'),
-                    share_unit_price,
-                    request.POST.get('operation'),
-                    tax,
-                    investor
-                )
+            new_transaction = Transaction(
+                creation_date=request.POST.get('creation_date'),
+                stock=stock,
+                stock_shares=request.POST.get('stock_shares'),
+                share_unit_price= share_unit_price,
+                operation=request.POST.get('operation'),
+                tax=tax,
+                investor=investor
             )
+
             new_transaction.save()
             success(request, 'Nova transação adicionada!')
             return redirect('dashboard')
@@ -225,13 +223,24 @@ class TransactionsView(ListView):
     model = Transaction
 
     def get_context_data(self, **kwargs):
+        """
+        Doc.A = Tentativa de avisar no template quando o usuário logado não possuir transação (há formas melhores)
+        Doc.B = Input que faz a pesquisa do ativo pelo seu código
+        Doc.C
+            Os dados são coletados e lançadados ao contexto
+            Eu não consegui fazer a biblioteca "django_filter" funcionar
+            A filtragem é feita majoritariamente por essa função e o controle de visualização pelo JS
+            Em "transactions.html" há 1 var escondida, verificada pelo JS e faz o controle visual (id="stocks-found")
+        """
+
         context = super().get_context_data(**kwargs)
+
         context['active_user'] = str(self.request.user.username)
-        context['active_user_transactions'] = TransactionsView.model.objects.order_by('created').all()
         # Model.objects.order_by('?').all()
+        context['active_user_transactions'] = TransactionsView.model.objects.order_by('created').all()
         context['active_user_has_transactions'] = None
 
-        # Tentativa de avisar no template quando o usuário logado não possuir transação
+        # Doc.A
         for t in context['active_user_transactions']:
             user_id = t.__dict__['investor_id']
             username = str(Investor.objects.get(pk=user_id))
@@ -239,16 +248,19 @@ class TransactionsView(ListView):
                 context['active_user_has_transactions'] = True
                 break
 
+        # Doc.B
         stock_name = self.request.GET.get('stock_name')
-        # print([1], stock_name)
-        stock_searched = search_by_stock(Investor, self.request.user.username, stock_name)
-        # print([2], stock_searched)
-        context['stock_searched'] = stock_searched
+
+        # Precisa refatorar
+        if stock_name not in [i.code for i in call_model(Stock)] and stock_name is not None:
+            error(self.request, 'Ativo não encontrado!')
+
+        if get_db_size(Investor) > 0:
+            # Doc.C
+            stock_searched = search_by_stock(Investor, self.request.user.username, stock_name)
+            context['stock_searched'] = stock_searched
+
         return context
-
-
-# def searched_stock(request):
-#     return render(request, template_name='searched_stock.html')
 
 
 class TransactionAnyField(UpdateView):

@@ -38,8 +38,7 @@
                 </div>
 
                 <!-- Formulário p/ criar ativos (requisito: usuário logado) -->
-                <div class="flex-left-column create-stocks-random">
-                    <div style="color: black;">Contagem de ativos: {{ db_stocks }}</div>
+                <div class="flex-left-column create-stocks-random text-center">
                     <form method="post">
                         {% csrf_token %}
                         <div class="question-about-stock text-highlight">Deseja criar ativos?</div>

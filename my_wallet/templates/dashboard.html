@@ -32,6 +32,11 @@
 
             <!-- Informar usuário logado -->
             {% else %}
+                <!-- Botão p/ ver descrição do PDF do projeto -->
+                <div style="position: fixed; right: 0;">
+                    <a href="{% url 'relatorio' %}" class="btn btn-secondary" style="opacity: .2; margin: 1rem;">instruções</a>
+                </div>
+
                 <!-- Formulário p/ criar ativos (requisito: usuário logado) -->
                 <div class="flex-left-column create-stocks-random">
                     <div style="color: black;">Contagem de ativos: {{ db_stocks }}</div>
@@ -39,30 +44,56 @@
                         {% csrf_token %}
                         <div class="question-about-stock text-highlight">Deseja criar ativos?</div>
                         <select name="new_stocks">
-                            <option value="s">sim</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
                         </select>
                         <input type="submit" class="btn btn-success" name="new-stocks" value="criar ativos">
                     </form>
                 </div>
 
-                <!-- Investidor e seu percentual de ativos -->
+                <!-- Investidor: percentual de ativos -->
                 <div class="flex-column">
-                    <p class="logged-as btn btn-success">Investidor: {{ user }}</p>
-                    <div class="progress-bar" style="width: {{ user_stocks_percentage_int }}%; background-color: ivory; color: black;">{{ user_stocks_percentage }}</div>
+                    <p class="logged-as btn btn-warning">Investidor: {{ user }}</p>
+                    <div class="progress-bar" style="width: {{ user_stocks_percentage_shortened }}%; background-color: ivory; color: black;">{{ user_stocks_percentage }}</div>
                 </div>
 
                 <!-- Dados sobre o investidor -->
                 <div class="user-logged mt-5">
                     <div class="flex">
+
+                        <!-- Dados do investidor com relação aos seus ativos -->
                         <div class="flex-column-no-gap black-cover user-main-info">
-                            <h4>Sobre {{ user }}</h4>
-                            <p>Total de ativos: {{ user_stocks_percentage }} ({{ user_stocks_amount }})</p>
-                            <p>Qtd. total de ativos: {{ user_stocks_overall_amount }} </p>
-                            <p>Qtd. total de ativos de compra: {{ user_stocks_overall_amount_operation_purchase }} </p>
-                            <p>Qtd. total de ativos de venda: {{ user_stocks_overall_amount_operation_sale }} </p>
-                            <p>Valor total em ativos: R$ {{ user_stocks_overall_worth }} </p>
+                            <h4> Relatório sobre {{ user }}</h4>
+                            <table class="table table-dark user-data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Ativos criados</th>
+                                        <th>Ativos (qtd.)</th>
+                                        <th>Ativos (valor)</th>
+                                        <th>Ativos de compra (qtd.)</th>
+                                        <th>Ativos de compra (valor)</th>
+                                        <th>Ativos de venda (qtd.)</th>
+                                        <th>Ativos de venda (valor)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="dashboard-user-report-body">
+                                    <tr>
+                                        <td>{{ user_stocks_amount }} ({{ user_stocks_percentage }})</td>
+                                        <td>{{ stocks_length }}</td>
+                                        <td>R$ {{ stocks_length_worth }}</td>
+                                        <td>{{ stocks_length_for_purchase }}</td>
+                                        <td>R$ {{ stocks_length_for_purchase_worth }}</td>
+                                        <td>{{ stocks_length_for_sale }}</td>
+                                        <td>R$ {{ stocks_length_for_sale_worth }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
+                        <!-- Urls: (ver transações do usuário, criar uma nova transação, deslogar) -->
                         <div class="flex-column black-cover">
                             <a class="btn btn-light user-transactions" href="{% url 'transacoes-usuario' %}">transações de {{ user }}</a>
                             <a class="btn btn-info new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
@@ -74,7 +105,5 @@
         </section>
 
     </main>
-
-    <script></script>
 
 {% endblock %}

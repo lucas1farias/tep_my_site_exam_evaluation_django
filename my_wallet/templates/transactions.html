@@ -11,14 +11,20 @@
 {% block body %}
     <main>
         {% include 'return_button.html' %}
+
         <section id="transactions-list">
-            <!-- Não há alguma transação -->
+
+            <!-- Não há alguma transação no modelo "Transaction" (transactions = context_object_data) -->
             {% if transactions|length == 0 %}
                 <div class="flex-column height-edited">
                     <p class="text-highlight-smooth">Não há transações adicionadas</p>
                     <a class="btn btn-success new-transaction" href="{% url 'nova-transacao' %}">+ transação</a>
                 </div>
+
+            <!-- Há objetos de "Transaction" -->
             {% else %}
+
+                <!-- Usuário logado e SEM transações registradas -->
                 {% if not active_user_has_transactions %}
                     <div class="flex-column height-edited">
                         <div class="text-highlight">{{ user }} não possui transações registradas</div>
@@ -26,19 +32,65 @@
                         <a class="btn btn-success new-transaction" href="{% url 'nova-transacao' %}">+ transação p/ {{ user }}</a>
                     </div>
                 {% endif %}
+
+                <!-- Usuário logado e COM transações registradas -->
                 <div class="flex height-edited">
-                    <table class="table table-dark" style="width: 70%;">
+
+                    <!-- Formulário p/ procurar ativos repetidos do usuário -->
+                    <div class="flex text-center">
+                        <form method="get" id="search-stock-form">
+                            <input type="text" class="mt-2" name="stock_name" placeholder="Digitar nome do ativo">
+                            <input type="submit" class="btn btn-dark" value="pesquisar">
+                            <p style="font-size: .9rem;">OBS: (4 letras e 1 número) ou (4 letras e 2 números)</p>
+                        </form>
+                        <p id="stocks-found" style="display: none;">{{ stock_searched }}</p>
+
+                        {% if stock_searched|turn_into_string != '[]' %}
+
+                            <div class="flex-column height-edited text-center">
+                                <table class="tabel table-light">
+                                    <thead>
+                                        <tr>
+                                            <th class="bg-success">Data de criação</th>
+                                            <th class="bg-danger">Ação</th>
+                                            <th class="bg-secondary">Quantidade disponível</th>
+                                            <th class="bg-primary">Preço unitário</th>
+                                            <th class="bg-warning">Operação</th>
+                                            <th class="bg-info">Taxa de corretagem</th>
+                                            <th class="bg-danger">Investidor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for stock in stock_searched %}
+                                            <tr>
+                                                <td class="creation_date">{{ stock.creation_date }}</td>
+                                                <td class="stock">{{ stock.stock }}</td>
+                                                <td class="stock_shares">{{ stock.stock_shares }}</td>
+                                                <td class="share_unit_price">{{ stock.share_unit_price }}</td>
+                                                <td class="operation">{{ stock.operation }}</td>
+                                                <td class="tax">{{ stock.tax }}</td>
+                                                <td class="investor">{{ stock.investor }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        {% endif %}
+                    </div>
+
+                    <table class="table table-dark" id="logged-user-transactions" style="width: 70%;">
                         <thead>
                         <tr>
                             <th class="bg-success">Data de criação</th>
-                                <th class="bg-danger">Ação</th>
-                                <th class="bg-secondary">Quantidade disponível</th>
-                                <th class="bg-primary">Preço unitário</th>
-                                <th class="bg-warning">Operação</th>
-                                <th class="bg-info">Taxa de corretagem</th>
-                                <th class="bg-danger">Investidor</th>
-                                <!-- Adicionado posteriormente aos itens anteriores (crud editar links dinâmicos) -->
-                                <th class="bg-darkness">Ações</th>
+                            <th class="bg-danger">Ação</th>
+                            <th class="bg-secondary">Quantidade disponível</th>
+                            <th class="bg-primary">Preço unitário</th>
+                            <th class="bg-warning">Operação</th>
+                            <th class="bg-info">Taxa de corretagem</th>
+                            <th class="bg-danger">Investidor</th>
+                            <!-- Adicionado posteriormente aos itens anteriores (crud editar links dinâmicos) -->
+                            <th class="bg-darkness">Ações</th>
                             </tr>
                         </thead>
                         {% for transaction in transactions %}
@@ -54,13 +106,13 @@
                             {% if active_user == transaction.investor|turn_into_string %}
                                 <tbody>
                                     <tr>
-                                        <td>{{ transaction.creation_date }}</td>
-                                        <td>{{ transaction.stock }}</td>
-                                        <td>{{ transaction.stock_shares }}</td>
-                                        <td>{{ transaction.share_unit_price }}</td>
-                                        <td>{{ transaction.operation }}</td>
-                                        <td>{{ transaction.tax }}</td>
-                                        <td>{{ transaction.investor }}</td>
+                                        <td class="creation_date">{{ transaction.creation_date }}</td>
+                                        <td class="stock">{{ transaction.stock }}</td>
+                                        <td class="stock_shares">{{ transaction.stock_shares }}</td>
+                                        <td class="share_unit_price">{{ transaction.share_unit_price }}</td>
+                                        <td class="operation">{{ transaction.operation }}</td>
+                                        <td class="tax">{{ transaction.tax }}</td>
+                                        <td class="investor">{{ transaction.investor }}</td>
                                         <!-- Adicionado posteriormente aos itens anteriores (crud editar links dinâmicos) -->
                                         <td>
                                             <div class="flex">
@@ -78,4 +130,5 @@
             {% endif %}
         </section>
     </main>
+    <script type="text/javascript" src="{% static 'js/transactions.js' %}"></script>
 {% endblock %}

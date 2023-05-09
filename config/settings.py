@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'report',
     'accounts',
     'my_wallet',
-    'bootstrap4'
+    'bootstrap4',
+    'django_filters'
 ]
 
 MIDDLEWARE = [

@@ -80,6 +80,11 @@ table td {
     padding: 1rem;
 }
 
+.dashboard-user-report-body  > * td:hover {
+    background-color: black;
+    transition: linear .5s;
+}
+
 .delete-text {
     font-size: 1.5 rem;
     color: crimson;
@@ -93,6 +98,10 @@ table td {
     border: solid 1px crimson;
     box-shadow: 0 0 2rem crimson;
     width: 70%;
+}
+
+.hide {
+   display: none;
 }
 
 .input-config input {
@@ -123,6 +132,7 @@ table td {
     box-shadow: 0 0 10px ivory;
     border: ivory solid 1px;
     border-radius: 1rem;
+    animation: shades linear infinite 5s;
 }
 
 .red-beam {
@@ -208,4 +218,11 @@ table td {
     40% {transform: translateY(-2px);}
     65% {transform: translateY(2px);}
     90% {transform: translateX(-2px);}
+}
+
+@keyframes shades {
+    20% {box-shadow: 0 0 .1rem ivory;}
+    40% {box-shadow: 0 0 1rem ivory;}
+    65% {box-shadow: 0 0 .1rem ivory;}
+    90% {box-shadow: 0 0 1rem ivory;}
 }

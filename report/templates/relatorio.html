@@ -15,47 +15,48 @@
         <section>
             <div class="flex-column height-edited text-center">
                 <ol>
-                    <li class="thread">Crie um <b>projeto</B> Django chamado <b>mysite</b></li>
-                    <li class="thread">Crie um <b class="app">app accounts</b> que utilize as funcionalidades django Auth e User</li>
-                    <li class="thread">Deve realizar <b>registro de usuários</b> username, email, password</li>
-                    <li class="thread">Deve realizar <b>controle de login</b> username, password</li>
-                    <li class="thread">Crie um <b class="app">app my_wallet</b></li>
-                    <li class="thread">Crie um <b class="model">modelo Investor</b> que deve possuir uma <b class="relationship">relação um para um</b> com <b class="model">User</b> e funcione como o usuário de login</li>
-                    <li class="thread atrib"><b class="model">Investor</b> As opções devem ser especificadas no modelo <b>(choices)</b> <b class="important">1</b> perfil de risco (conservador, moderado, arrojado)</li>
-                    <li class="thread">Criar um modelo <b class="model">Stock</b> para representar um <b>ativo</b></li>
-                    <li class="thread atrib"><b class="model">Stock</b> <b class="important">1</b> Código: 4 letras maiúsculas seguidas de um ou dois números (Ex: ITSA4 ou KLBL11) <b class="important">2</b> Nome da empresa <b class="important">3</b> CNPJ da empresa: XX. XXX. XXX/0001-XX</li>
-                    <li class="thread"><b class="model">Stock</b>: <b>Cadastrar</b> algumas <b>stocks</b> da bolsa de valores do brasil (B3): ex: ITSA4, WEGE3 etc.</li>
-                    <li class="thread"><b class="important">OBS</b> <b class="model">Stock</b>: não precisa criar view e template, pode ser feito pelo django admin.</li>
-                    <li class="thread">Criar uma página <b class="template">dashboard.html</b></li>
+                    <li class="">Crie um <b>projeto</B> Django chamado <b>mysite</b></li>
+                    <li class="">Crie um <b class="app">app accounts</b> que utilize as funcionalidades django Auth e User</li>
+                    <li class="">Deve realizar <b>registro de usuários</b> username, email, password</li>
+                    <li class="">Deve realizar <b>controle de login</b> username, password</li>
+                    <li class="">Crie um <b class="app">app my_wallet</b></li>
+                    <li class="">Crie um <b class="model">modelo Investor</b> que deve possuir uma <b class="relationship">relação um para um</b> com <b class="model">User</b> e funcione como o usuário de login</li>
+                    <li class=" atrib"><b class="model">Investor</b> As opções devem ser especificadas no modelo <b>(choices)</b> <b class="important">1</b> perfil de risco (conservador, moderado, arrojado)</li>
+                    <li class="">Criar um modelo <b class="model">Stock</b> para representar um <b>ativo</b></li>
+                    <li class=" atrib"><b class="model">Stock</b> <b class="important">1</b> Código: 4 letras maiúsculas seguidas de um ou dois números (Ex: ITSA4 ou KLBL11) <b class="important">2</b> Nome da empresa <b class="important">3</b> CNPJ da empresa: XX. XXX. XXX/0001-XX</li>
+                    <li class=""><b class="model">Stock</b>: <b>Cadastrar</b> algumas <b>stocks</b> da bolsa de valores do brasil (B3): ex: ITSA4, WEGE3 etc.</li>
+                    <li class=""><b class="important">OBS</b> <b class="model">Stock</b>: não precisa criar view e template, pode ser feito pelo django admin.</li>
+                    <li class="">Criar uma página <b class="template">dashboard.html</b></li>
                     <li class="">Irá conter o <b>resumo das posições de um usuário</b> e deve ser a página inicial do app (Algo do tipo: soma dos ativos do usuário logado)</li>
                     <li class=""><b class="important">Confuso</b> Quantidade e valor total de cada ativo</li>
-                    <li class="thread">Criar um <b class="model">modelo Transaction</b> com as seguintes <b>propriedades</b>:</li>
+                    <li class="">Criar um <b class="model">modelo Transaction</b> com as seguintes <b>propriedades</b>:</li>
 
-                    <li class="thread atrib"><b class="model">Transaction</b> <b class="important">1</b>data (date) <b class="important">2</b>quantidade de ações (int +) <b class="important">3</b>preço unitário da ação (float +) <b class="important">4</b> corretagem (float +)</li>
-                    <li class="thread atrib"><b class="model">Transaction</b> <b class="important">4</b> tipo de operação <b>choices</b> (C, compra, V, venda)</li>
-                    <li class="thread atrib"><b class="model">Transaction</b> <b class="important">5</b>stock <b class="model">Stock</b> <b class="relationship">relação n:1</b> (cada <b>Transaction</b> é de um ativo, mas um ativo pode ter várias transações)</li>
-                    <li class="thread atrib"><b class="model">Transaction</b> <b class="important">6</b> investor <b class="model">Investor</b> <b class="relationship">relação n:1</b> (cada operação é de um <b>Investor</b> e um investor pode ter várias operações)</li>
+                    <li class=" atrib"><b class="model">Transaction</b> <b class="important">1</b>data (date) <b class="important">2</b>quantidade de ações (int +) <b class="important">3</b>preço unitário da ação (float +) <b class="important">4</b> corretagem (float +)</li>
+                    <li class=" atrib"><b class="model">Transaction</b> <b class="important">4</b> tipo de operação <b>choices</b> (C, compra, V, venda)</li>
+                    <li class=" atrib"><b class="model">Transaction</b> <b class="important">5</b>stock <b class="model">Stock</b> <b class="relationship">relação n:1</b> (cada <b>Transaction</b> é de um ativo, mas um ativo pode ter várias transações)</li>
+                    <li class=" atrib"><b class="model">Transaction</b> <b class="important">6</b> investor <b class="model">Investor</b> <b class="relationship">relação n:1</b> (cada operação é de um <b>Investor</b> e um investor pode ter várias operações)</li>
 
-                    <li class="thread">Criar na página <b class="template">dashboard.html</b>, dois links</li>
-                    <li class="thread"><b class="important">Cadastrar transação</b>:</li>
-                    <li class="thread">Ir p/ uma página com um <b>formulário</b> p/ entrada dos dados p/ <b class="important">criar um objeto</b> a partir do modelo<b class="model">Transaction</b></li>
-                    <li class="thread">O <b class="important">objeto</b> de <b class="model">Transaction</b> deve ser <b>persistido</b> no banco</li>
-                    <li class="thread">O banco é relacional (<b class="important">postgre, mysql, etc</b>) ou mongodb</li>
-                    <li class="thread">Após o <b class="important">cadastro da operação</b> deve ser retornado para a página <b class="template">dashboard.html</b></li>
-                    <li class="thread">Criar um página <b class="template">transactions.html</b></li>
-                    <li class="thread">Listar <b class="important">todas as operações do usuário</b> em ordem crescente de data (da mais antiga em cima p/ a mais recente embaixo)</li>
+                    <li class="">Criar na página <b class="template">dashboard.html</b>, dois links</li>
+                    <li class=""><b class="important">Cadastrar transação</b>:</li>
+                    <li class="">Ir p/ uma página com um <b>formulário</b> p/ entrada dos dados p/ <b class="important">criar um objeto</b> a partir do modelo<b class="model">Transaction</b></li>
+                    <li class="">O <b class="important">objeto</b> de <b class="model">Transaction</b> deve ser <b>persistido</b> no banco</li>
+                    <li class="">O banco é relacional (<b class="important">postgre, mysql, etc</b>) ou mongodb</li>
+                    <li class="">Após o <b class="important">cadastro da operação</b> deve ser retornado para a página <b class="template">dashboard.html</b></li>
+                    <li class="">Criar um página <b class="template">transactions.html</b></li>
+                    <li class="">Listar <b class="important">todas as operações do usuário</b> em ordem crescente de data (da mais antiga em cima p/ a mais recente embaixo)</li>
                     <li class="">Deve conter um campo para <b class="important">filtrar operações</b> por código da ação (Botão de pesquisa?)</li>
-                    <li class="thread">Deve conter um <b>botão de voltar</b> que leva para <b class="template">dashboard.html</b></li>
-                    <li class="thread">Para visualização de cada operação <b class="important">calcular e exibir</b> os valores:</li>
-                    <li class="thread"><b class="important">1</b> Código do ativo <b class="important">2</b> Tipo de operação (compra ou venda) <b class="important">3</b> Data <b class="important">4</b> Quantidade <b class="important">5</b> Preço unitário <b class="important">6</b> Total</li>
-                    <li class="thread">Para <b>cada</b> operação deve haver um <b class="important">botao para detalhar</b> a operação que abre uma página <b class="template">detalhe.html</b></li>
-                    <li class="thread">Criar uma página <b class="template">detalhe.html</b> para detalhar uma transação específica</li>
-                    <li class="thread">Deve ser possível <b class="important">editar ou remover</b> a operação e voltar para a página <b class="template">transactions.html</b></li>
-                    <li class="thread">Para <b>cada ação</b> deve ser exibido <b>mensagem(ns) de sucesso ou erro(s)</b></li>
-                    <li class="thread">Deve ser aplicado a <b>reutilização de templates</b></li>
-                    <li class="thread">Deve ser aplicado estilização <b>css</b> e, se necessário, <b>scripts e imagens</b></li>
+                    <li class="">Deve conter um <b>botão de voltar</b> que leva para <b class="template">dashboard.html</b></li>
+                    <li class="">Para visualização de cada operação <b class="important">calcular e exibir</b> os valores:</li>
+                    <li class=""><b class="important">1</b> Código do ativo <b class="important">2</b> Tipo de operação (compra ou venda) <b class="important">3</b> Data <b class="important">4</b> Quantidade <b class="important">5</b> Preço unitário <b class="important">6</b> Total</li>
+                    <li class="">Para <b>cada</b> operação deve haver um <b class="important">botao para detalhar</b> a operação que abre uma página <b class="template">detalhe.html</b></li>
+                    <li class="">Criar uma página <b class="template">detalhe.html</b> para detalhar uma transação específica</li>
+                    <li class="">Deve ser possível <b class="important">editar ou remover</b> a operação e voltar para a página <b class="template">transactions.html</b></li>
+                    <li class="">Para <b>cada ação</b> deve ser exibido <b>mensagem(ns) de sucesso ou erro(s)</b></li>
+                    <li class="">Deve ser aplicado a <b>reutilização de templates</b></li>
+                    <li class="">Deve ser aplicado estilização <b>css</b> e, se necessário, <b>scripts e imagens</b></li>
                 </ol>
             </div>
         </section>
     </main>
+    <script type="text/javascript" src="{% static 'js/relatorio.js' %}"></script>
 {% endblock %}

@@ -192,10 +192,26 @@ def calculate_trade_value(operation, purchase_value, tax):
         return f'{purchase_value_data - tax_data:.2f}'
 
 
-def get_percentage(reference, main_source, is_float:False):
+def get_percentage(reference, main_source, is_float=False):
     calculus = (reference / main_source) * 100
     return f'{calculus:.2f}%' if is_float else calculus
 
+
+def increase_itself(target, atrib):
+    counter = target
+    counter += atrib
+    return counter
+
+
+def search_by_stock(model, user, search):
+    model_data = model.objects.get(investor__username=user)
+    model_data_filtered = model_data.transaction.all()
+    container = []
+
+    for stock in model_data_filtered:
+        if str(stock.stock) == search:
+            container.append(stock)
+    return container
 
 # print(create_stocks_code(100))
 # print(create_cnpj(100))
@@ -203,8 +219,11 @@ def get_percentage(reference, main_source, is_float:False):
 # print(create_cnpj(1))
 
 """
-1. I want to check in the template if a certain database is empty
-2. If it is, I have a button on the template that is supposed to create certain objects and make this database not empty anymore
-3. But I do not know how to trigger a function in Django when I click on something in the template
-4. Is it possible to be done through Django?
+customer.order_set.all()
+
+<form method="get">
+    {% csrf_token %}
+    {{ stock_filter.form }}
+    <input type="submit" class="btn btn-primary" value="pesquisar">
+</form>
 """
